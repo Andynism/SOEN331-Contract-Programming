@@ -1,29 +1,29 @@
-package assignment3;
+	package assignment3;
 
 public class Element {
     public String elementName;
-  	public int finalPriority;
+  	public int key;
   	//Constructor
   	public Element() {
   		super();
   		this.elementName = "Default Element";
-  		this.finalPriority = 1;
+  		this.key = 1;
   	}
 
-  	public Element(String elementName, int finalPriority) {
+  	public Element(String elementName, int key) {
   		super();
   		this.elementName = elementName;
-  		this.finalPriority = finalPriority;
+  		this.key = key;
   	}
 
   	public Element(Element j) {
   		super();
   		this.elementName = j.getElementName();
-  		this.finalPriority = j.getFinalPriority();
+  		this.key = j.getKey();
   	}
 
   	public String toString() {
-  		return this.elementName + "; Priority:"+ this.finalPriority;
+  		return this.elementName + "; Key:"+ this.key;
   	}
 
   	//Getters and setters
@@ -35,11 +35,11 @@ public class Element {
   		this.elementName = elementName;
   	}
 
-  	public int getFinalPriority() {
-  		return finalPriority;
+  	public int getKey() {
+  		return key;
   	}
 
-  	public void setFinalPriority(int finalPriority) {
-  		this.finalPriority = finalPriority;
+  	public void setKey(int key) {
+  		this.key = key;
   	}
 }
