@@ -17,16 +17,34 @@ public class PriorityQueue {
 
   	//Insert a job in the Heap
   	public void insert(Element value) {
-  		data.set(++lastElementIndex, value);
-
-  		int pos = lastElementIndex;
-
-  		while (pos != 1 && value.getFinalPriority() < data.get(pos/2).getFinalPriority()){
-  	            data.set(pos, data.get(pos/2));
-  	            pos /=2;
+  		if(isFull()) {
+  			System.out.println("PriorityQueue is Full, swapping the element with the lowest priority with the new element.");
+  			int positionToChange = findLowestPriority();
+  			data.set(positionToChange, value);
   		}
+  		else {
+  			data.set(++lastElementIndex, value);
 
-  		data.set(pos, value);
+  	  		int pos = lastElementIndex;
+
+  	  		while (pos != 1 && value.getFinalPriority() < data.get(pos/2).getFinalPriority()){
+  	  	            data.set(pos, data.get(pos/2));
+  	  	            pos /=2;
+  	  		}
+
+  	  		data.set(pos, value);
+  		}
+  		
+  	}
+  	
+  	//Find the lowest priority item
+  	public int findLowestPriority() {
+  		int position = 1;
+  		for(int i=1; i<this.capacity;i++) {
+  			if(data.get(i).getFinalPriority() > data.get(position).getFinalPriority())
+  				position = i;
+  		}
+  		return position;
   	}
 
   	//Downheap the root
