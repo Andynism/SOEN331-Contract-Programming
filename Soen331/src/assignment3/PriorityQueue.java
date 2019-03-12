@@ -27,7 +27,7 @@ public class PriorityQueue {
 
   	  		int pos = lastElementIndex;
 
-  	  		while (pos != 1 && value.getFinalPriority() < data.get(pos/2).getFinalPriority()){
+  	  		while (pos != 1 && value.getKey() < data.get(pos/2).getKey()){
   	  	            data.set(pos, data.get(pos/2));
   	  	            pos /=2;
   	  		}
@@ -41,7 +41,7 @@ public class PriorityQueue {
   	public int findLowestPriority() {
   		int position = 1;
   		for(int i=1; i<this.capacity;i++) {
-  			if(data.get(i).getFinalPriority() > data.get(position).getFinalPriority())
+  			if(data.get(i).getKey() > data.get(position).getKey())
   				position = i;
   		}
   		return position;
@@ -53,12 +53,12 @@ public class PriorityQueue {
   		    int p = location;
   		    int l = 2*p;
   		    int r = 2*p+1;
-  		    if(r < lastElementIndex && data.get(r).getFinalPriority() < data.get(p).getFinalPriority() && data.get(r).getFinalPriority() < data.get(l).getFinalPriority()){
+  		    if(r < lastElementIndex && data.get(r).getKey() < data.get(p).getKey() && data.get(r).getKey() < data.get(l).getKey()){
   		        Element temp = data.get(r);
   		        data.set(r, data.get(p));
   		        data.set(p, temp);
   		        downHeap(r);
-  		    }else if(l < lastElementIndex && data.get(l).getFinalPriority() < data.get(p).getFinalPriority()){
+  		    }else if(l < lastElementIndex && data.get(l).getKey() < data.get(p).getKey()){
   		        Element temp = data.get(l);
   		        data.set(l, data.get(p));
   		        data.set(p, temp);
