@@ -23,7 +23,7 @@ public class PriorityQueue {
   	}
   	
   	@requires({
-  		"size > 0"
+  		"size>0"
   	})
   	@ensures({
   		"$this.capacity > 0",

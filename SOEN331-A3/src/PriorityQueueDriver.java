@@ -38,6 +38,18 @@ public class PriorityQueueDriver {
 		}
 		long end = System.currentTimeMillis();
 
-	    System.out.print("Number of elements done:" + counterOfElementDone);
+	    System.out.println("Number of elements done:" + counterOfElementDone);
+	    
+	    System.out.println("-------------------------------------------- TESTING FAILURES --------------------------------------------");
+	    
+	    /*-------------------------------------------- TESTING FAILURES --------------------------------------------*/
+	    
+	    pq1.remove();
+	    //pq1.insert(null);
+	    
+	    //PriorityQueue pq2 = new PriorityQueue(-1);
+	    //Element E = new Element(null, -1);
+	    //MyArrayList mael = new MyArrayList(-1);
 	  }
+	  
 	}
