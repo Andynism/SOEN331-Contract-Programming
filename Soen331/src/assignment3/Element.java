@@ -1,5 +1,3 @@
-	package assignment3;
-
 public class Element {
     public String elementName;
   	public int key;

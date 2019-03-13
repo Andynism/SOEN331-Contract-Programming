@@ -4,42 +4,66 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import be.ac.ua.ansymo.adbc.annotations.ensures;
+import be.ac.ua.ansymo.adbc.annotations.invariant;
+import be.ac.ua.ansymo.adbc.annotations.requires;
+
+@invariant ({
+	"$this.size >= 0"
+})
 public class MyArrayList<E> implements List<E>{
 
-	  private int size;	//number of elements in the array
+	  public int size;	//number of elements in the array
 		private E[] data;	//Array that contains the data
 
+		@requires({"true"})
+		@ensures({"true"})
 		//Constructor
 		public MyArrayList(){
 			this(10);
 		}
-
+		
+		@requires ({
+			"initialCapacity >= 0"
+		})
+		@ensures ({
+			"$this.getLength() >= 0",
+			"$this.getLength() == initialCapacity"
+		}) 
 		//Constructor with an initial capacity
 	  public MyArrayList(int initialCapacity) {
 	    	super();
 		    if (initialCapacity < 0)
 		    	throw new IllegalArgumentException("Wrong Capacity: " + initialCapacity);
 		    this.data = (E[]) new Object[initialCapacity];
+		    size = 0;
 		}
 
 	    //Check if the array as enough capacity to add a new element
-	    public void checkCapacity(int capacityRequired) {
+	    private void checkCapacity(int capacityRequired) {
 	    	if(capacityRequired - data.length > 0)
 	    		doubleCapacity();
 	    }
 
 	    //Doubles the capacity of the array
-	    public void doubleCapacity() {
+	    private void doubleCapacity() {
 	    	int newCapacity = data.length * 2;
 	    	data = Arrays.copyOf(data, newCapacity);
 	    }
 
 	    //Divide the capacity in 2, if there is useless space
-	    public void halfCapacity() {
+	    private void halfCapacity() {
 	    	int newCapacity = data.length / 2;
 	    	data = Arrays.copyOf(data, newCapacity);
 	    }
 
+	    @requires({
+	    	"e != null"
+	    })
+	    @ensures ({
+	    	"$result == true",
+	    	"$this.size == $old(this.size)+1"
+	    }) 
 	    //Add element e
 		@Override
 		public boolean add(E e) {
@@ -48,6 +72,14 @@ public class MyArrayList<E> implements List<E>{
 			return true;
 		}
 
+	    @requires({
+	    	"element != null",
+	    	"index>=0"
+	    })
+	    @ensures ({
+	    	"$result == true",
+	    	"$this.size == $old(this.size)+1"
+	    }) 
 		//Add element e at a given index
 		@Override
 		public void add(int index, E element) {
@@ -60,6 +92,13 @@ public class MyArrayList<E> implements List<E>{
 			size++;
 		}
 
+	    @requires({
+	    	"true"
+	    })
+	    @ensures({
+	    	"$this.size == 0",
+	    	"$this.getLength() == 0"
+	    })
 		//Clear the array completely
 		@Override
 		public void clear() {
@@ -69,6 +108,14 @@ public class MyArrayList<E> implements List<E>{
 			size=0;
 		}
 
+	    @requires({
+	    	"$this.size >  0",
+	    	"index >= 0"
+	    })
+	    @ensures({
+	    	"$this.size = $old($this.size)-1",
+	    	"$result != null"
+	    })
 		//Remove and return an element at a given index
 		@Override
 		public E remove(int index) {
@@ -88,6 +135,14 @@ public class MyArrayList<E> implements List<E>{
 			return valueToRemove;
 		}
 
+	    @requires({
+	    	"$this.size >  0",
+	    	"o != null"
+	    })
+	    @ensures({
+	    	"$this.size = $old($this.size)-1",
+	    	"$result != null"
+	    })    
 		//Remove a given object o from the array list
 		@Override
 		public boolean remove(Object o) {
@@ -105,6 +160,12 @@ public class MyArrayList<E> implements List<E>{
 			return false;
 		}
 
+	    @requires({
+	    	"this.getLength() != 0"
+	    })
+	    @ensures({
+	    	"@result != null"
+	    })
 		//Return the arraylist information in a String
 		@Override
 		public String toString() {
@@ -115,21 +176,48 @@ public class MyArrayList<E> implements List<E>{
 			 return "ArrayList: " + result;
 		}
 
+	    @requires({"true"})
+	    @ensures({"$result >= 0"})
 		//Return the size of the arraylist (the number of elements in it)
 		@Override
 		public int size() {
 			return size;
 		}
 
+	    @requires({
+	    	"index >= 0",
+	    	"$this.getLength() > 0",
+	    	"element != null"
+	    })
+	    @ensures({
+	    	"$result != null",
+	    	"$this.size == $old($this.size)"
+	    })
 		@Override
 		public E set(int index, E element) {
 			data[index] = element;
 			return element;
 		}
 
+	    @requires({
+	    	"index >= 0"
+	    })
+	    @ensures({
+	    	"$result != null"
+	    })
 		@Override
 		public E get(int index) {
 			return data[index];
+		}
+		
+	    @requires ({
+	    	"true"
+	    })
+	    @ensures({
+	    	"$result >= 0"
+	    })
+		public int getLength() {
+			return this.data.length;
 		}
 
 
